@@ -1,334 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ember Leadership Collective</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EMBER — A New Kind of Mutual Partnership</title>
 
-  <style>
-    :root {
-      --bg-dark: #0b2f3a;
-      --bg-darker: #08242c;
-      --accent: #c9f24d;
-      --text-light: #ffffff;
-      --text-muted: #c7d7dc;
-      --max-width: 1120px;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    * {
-      box-sizing: border-box;
-    }
+<style>
+:root {
+  --bg-main: #0b2f3a;
+  --bg-dark: #071f26;
+  --text-main: #ffffff;
+  --text-muted: #b7d0d7;
+  --accent: #c9f24d;
+  --max-text: 720px;
+}
 
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg-dark);
-      color: var(--text-light);
-      line-height: 1.5;
-    }
+* { box-sizing: border-box; }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.55;
+}
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+img { display: block; max-width: 100%; }
 
-    .container {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+a { color: inherit; text-decoration: none; }
 
-    /* ---------------- Header ---------------- */
+/* ---------- Header ---------- */
 
-    header {
-      padding: 24px 0;
-    }
+header {
+  padding: 28px 6vw;
+  position: relative;
+  z-index: 10;
+}
 
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+.brand img {
+  height: 40px;
+}
 
-    .brand img {
-      height: 36px;
-      width: auto;
-    }
+/* ---------- Hero ---------- */
 
-    /* ---------------- Hero ---------------- */
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  min-height: 85vh;
+}
 
-    .hero {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 48px;
-      align-items: center;
-      padding: 80px 0 96px;
-    }
+.hero-text {
+  padding: 8vw 6vw;
+  max-width: var(--max-text);
+}
 
-    .hero h1 {
-      font-size: clamp(2.2rem, 4vw, 3.2rem);
-      font-weight: 700;
-      margin: 0 0 20px;
-    }
+.hero-text h1 {
+  font-size: clamp(2.4rem, 4vw, 3.5rem);
+  font-weight: 700;
+  margin: 0 0 24px;
+}
 
-    .hero p {
-      color: var(--text-muted);
-      font-size: 1.05rem;
-      max-width: 520px;
-    }
+.hero-text p {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
 
-    .hero-image {
-      border-radius: 16px;
-      overflow: hidden;
-    }
+.hero-image {
+  position: relative;
+}
 
-    /* ---------------- Section ---------------- */
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    section {
-      padding: 96px 0;
-    }
+/* ---------- Section Base ---------- */
 
-    section.dark {
-      background: var(--bg-darker);
-    }
+section {
+  padding: 140px 6vw;
+}
 
-    .section-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 56px;
-      align-items: center;
-    }
+.section-inner {
+  max-width: var(--max-text);
+}
 
-    h2 {
-      font-size: clamp(1.8rem, 3vw, 2.4rem);
-      margin: 0 0 16px;
-    }
+.dark { background: var(--bg-dark); }
 
-    .accent {
-      color: var(--accent);
-    }
+/* ---------- Advantage ---------- */
 
-    .copy {
-      color: var(--text-muted);
-      max-width: 520px;
-    }
+.advantage {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 6vw;
+  align-items: center;
+}
 
-    /* ---------------- Team ---------------- */
+.advantage img {
+  width: 120%;
+}
 
-    .team {
-      text-align: center;
-    }
+/* ---------- Mission ---------- */
 
-    .team-grid {
-      margin-top: 56px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 48px;
-    }
+.mission h2,
+.solutions h2,
+.leadership h2 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+}
 
-    .team-member img {
-      border-radius: 12px;
-      margin-bottom: 16px;
-    }
+.mission p {
+  color: var(--text-muted);
+}
 
-    .team-member h3 {
-      margin: 0 0 6px;
-      font-size: 1.05rem;
-    }
+/* ---------- Solutions ---------- */
 
-    .team-member p {
-      margin: 0;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
+.solutions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
+}
 
-    /* ---------------- Contact ---------------- */
+.solutions ul {
+  padding: 0;
+  list-style: none;
+}
 
-    .contact {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 56px;
-    }
+.solutions li {
+  margin-bottom: 14px;
+  color: var(--text-muted);
+}
 
-    .contact-box {
-      background: var(--bg-dark);
-      padding: 40px;
-      border-radius: 16px;
-    }
+/* ---------- Leadership ---------- */
 
-    .contact-box h3 {
-      margin-top: 0;
-    }
+.leadership-grid {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 64px;
+}
 
-    .contact-box p {
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
+.leader img {
+  margin-bottom: 18px;
+}
 
-    /* ---------------- Footer ---------------- */
+.leader h3 {
+  margin: 0;
+  font-weight: 600;
+}
 
-    footer {
-      padding: 40px 0;
-      background: #061c22;
-      font-size: 0.9rem;
-    }
+.leader span {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
 
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
+/* ---------- Contact ---------- */
 
-    .footer-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-    }
+.contact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
+}
 
-    .footer-brand img {
-      height: 18px;
-    }
+.contact-box {
+  background: var(--bg-main);
+  padding: 48px;
+}
 
-    /* ---------------- Responsive ---------------- */
+footer {
+  padding: 48px 6vw;
+  background: #061c22;
+}
 
-    @media (max-width: 900px) {
-      .hero,
-      .section-grid,
-      .contact {
-        grid-template-columns: 1fr;
-      }
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.12em;
+}
 
-      section {
-        padding: 72px 0;
-      }
-    }
-  </style>
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .hero,
+  .advantage,
+  .solutions,
+  .contact {
+    grid-template-columns: 1fr;
+  }
+
+  .advantage img {
+    width: 100%;
+  }
+
+  section {
+    padding: 96px 6vw;
+  }
+}
+</style>
 </head>
 
 <body>
-  <!-- Header -->
-  <header>
-    <div class="container nav">
-      <div class="brand">
-        <img src="assets/ember_logo.png" alt="Ember Leadership Collective" />
-      </div>
-    </div>
-  </header>
 
-  <!-- Hero -->
-  <main class="container hero">
-    <div>
-      <h1>Building leaders who<br />shape what’s next</h1>
+<header>
+  <div class="brand">
+    <img src="assets/ember_logo.png" alt="EMBER" />
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-text">
+    <h1>Igniting Progress.<br>Preserving Tradition.</h1>
+    <p>
+      Ember partners with legacy mutuals to help them evolve for the future
+      while honoring their roots — combining modern tools with mutual spirit.
+    </p>
+  </div>
+  <div class="hero-image">
+    <img src="assets/hero.jpg" alt="">
+  </div>
+</div>
+
+<!-- ADVANTAGE -->
+<section class="dark">
+  <div class="advantage">
+    <div class="section-inner">
+      <h2>The Ember Advantage</h2>
       <p>
-        Ember Leadership Collective partners with organizations and individuals
-        to develop courageous, capable leaders ready to navigate complexity and
-        change.
+        Across the country, many long-standing mutuals face familiar challenges:
+        leaders stretched thin, outdated systems, and limited access to modern tools.
       </p>
     </div>
-    <div class="hero-image">
-      <img src="assets/hero.jpg" alt="Workspace" />
+    <img src="assets/advantage.jpg" alt="">
+  </div>
+</section>
+
+<!-- MISSION -->
+<section>
+  <div class="section-inner mission">
+    <h2>Our Mission</h2>
+    <p>
+      To protect your independence, strengthen your foundation,
+      and spark new growth without erasing what makes you who you are.
+    </p>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section class="dark">
+  <div class="solutions">
+    <div class="section-inner">
+      <h2>Our Solutions</h2>
     </div>
-  </main>
+    <ul>
+      <li>Integrated Capital</li>
+      <li>Underwriting & Claims Support</li>
+      <li>Compliance & Reinsurance</li>
+      <li>Technology Modernization</li>
+      <li>Marketing & Brand Development</li>
+      <li>Leadership Training</li>
+    </ul>
+  </div>
+</section>
 
-  <!-- Advantage -->
-  <section class="dark">
-    <div class="container section-grid">
-      <div>
-        <h2>The <span class="accent">Ember</span> advantage</h2>
-        <p class="copy">
-          We blend deep leadership experience with practical, human-centered
-          development approaches—helping leaders grow with clarity, confidence,
-          and impact.
-        </p>
+<!-- LEADERSHIP -->
+<section>
+  <div class="section-inner leadership">
+    <h2>Leadership You Can Trust</h2>
+
+    <div class="leadership-grid">
+      <div class="leader">
+        <img src="assets/headshot.png" alt="">
+        <h3>Jake Black</h3>
+        <span>Founder</span>
       </div>
-      <div>
-        <img src="assets/advantage.jpg" alt="Professional at laptop" />
-      </div>
-    </div>
-  </section>
-
-  <!-- Approach -->
-  <section>
-    <div class="container section-grid">
-      <div>
-        <img src="assets/couple.png" alt="Leaders in conversation" />
-      </div>
-      <div>
-        <h2>Leadership that’s<br />human at its core</h2>
-        <p class="copy">
-          Our work centers self-awareness, trust, and meaningful action—because
-          leadership is ultimately about people.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Team -->
-  <section class="dark team">
-    <div class="container">
-      <h2>Our leadership</h2>
-
-      <div class="team-grid">
-        <div class="team-member">
-          <img src="assets/headshot.png" alt="Leader headshot" />
-          <h3>JAKE BLACK</h3>
-          <p>Founder & Principal</p>
-        </div>
-
-        <div class="team-member">
-          <img src="assets/headshot.png" alt="Leader headshot" />
-          <h3>JANE DOE</h3>
-          <p>Partner</p>
-        </div>
-
-        <div class="team-member">
-          <img src="assets/headshot.png" alt="Leader headshot" />
-          <h3>JOHN SMITH</h3>
-          <p>Senior Coach</p>
-        </div>
+      <div class="leader">
+        <img src="assets/headshot.png" alt="">
+        <h3>Jane Doe</h3>
+        <span>Partner</span>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Contact -->
-  <section>
-    <div class="container contact">
-      <div>
-        <h2>Let’s connect</h2>
-        <p class="copy">
-          Interested in working together or learning more about Ember? Reach out
-          and we’ll start the conversation.
-        </p>
-      </div>
-
-      <div class="contact-box">
-        <h3>Contact</h3>
-        <p>hello@emberleadership.com</p>
-        <p>(555) 123-4567</p>
-        <p>San Francisco, CA</p>
-      </div>
+<!-- CONTACT -->
+<section class="dark">
+  <div class="contact">
+    <div class="section-inner">
+      <h2>Let’s Keep the Fire Alive</h2>
+      <p>
+        Discover how Ember can power a new era of growth for your mutual.
+      </p>
     </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container footer-inner">
-      <div class="footer-brand">
-        <img src="assets/ember_spark.png" alt="" />
-        EMBER
-      </div>
-      <div>© 2025 Ember Leadership Collective</div>
+    <div class="contact-box">
+      <p>email@embermutual.com</p>
+      <p>San Francisco, CA</p>
     </div>
-  </footer>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">
+    <img src="assets/ember_spark.png" height="18" alt="">
+    EMBER
+  </div>
+</footer>
+
 </body>
 </html>
