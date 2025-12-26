@@ -8,657 +8,801 @@
 
   <style>
     :root{
-      --bg: #07131a;
-      --panel: rgba(8, 24, 32, .78);
-      --panel2: rgba(10, 30, 40, .92);
-      --text: #e8f3f6;
-      --muted: rgba(232, 243, 246, .72);
-      --line: rgba(232, 243, 246, .12);
-      --accent: #d6f04a;     /* ember yellow-green vibe */
-      --accent2:#72e6ff;     /* cool cyan highlight */
-      --shadow: 0 14px 40px rgba(0,0,0,.38);
-      --radius: 22px;
+      /* Palette (sampled by eye from the PDF) */
+      --navy:#083445;
+      --navy2:#0a3f55;
+      --ink:#0b1a22;
+      --paper:#ffffff;
+      --muted:#5a6b74;
+      --lime:#d7e83f;
+      --lime2:#cfe73a;
       --max: 1120px;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --radius: 22px;
+      --shadow: 0 18px 50px rgba(0,0,0,.22);
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
     }
 
-    *{ box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
       font-family: var(--sans);
-      color: var(--text);
-      background:
-        radial-gradient(1200px 700px at 75% 15%, rgba(114,230,255,.18), transparent 55%),
-        radial-gradient(1000px 600px at 20% 10%, rgba(214,240,74,.16), transparent 60%),
-        linear-gradient(180deg, #041017 0%, #07131a 35%, #041017 100%);
-      min-height:100vh;
+      color: var(--ink);
+      background: var(--paper);
     }
+    a{color:inherit}
 
-    a{ color:inherit; text-decoration:none; }
-    a:hover{ text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:3px; }
+    /* Container */
+    .wrap{max-width:var(--max); margin:0 auto; padding: 0 18px;}
 
     /* Top nav */
-    .topbar{
-      position: sticky; top:0; z-index: 50;
-      background: rgba(4, 16, 23, .66);
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(8,52,69,.78);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
     }
     .nav{
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 12px 18px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:14px;
+      padding: 14px 0;
+      color: #fff;
+      gap: 14px;
     }
     .brand{
-      display:flex; align-items:center; gap:12px;
-      font-weight: 800;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      font-size: 15px;
+      display:flex; align-items:center; gap: 12px;
+      text-decoration:none;
+      min-width: 210px;
     }
     .brand-mark{
-      width:34px; height:34px; border-radius: 10px;
-      background:
-        radial-gradient(10px 10px at 30% 30%, rgba(255,255,255,.35), transparent 50%),
-        conic-gradient(from 220deg, var(--accent), rgba(214,240,74,.2), rgba(114,230,255,.35), var(--accent));
-      box-shadow: 0 10px 22px rgba(0,0,0,.35);
-      border: 1px solid rgba(255,255,255,.10);
+      width: 34px; height: 34px;
+      display:grid; place-items:center;
     }
-    .links{
-      display:flex; align-items:center; gap:18px;
-      font-size: 13px;
-      color: var(--muted);
-      white-space: nowrap;
+    .brand-word{
+      font-weight: 900;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-size: 20px;
+      line-height: 1;
     }
-    .links a{ padding: 8px 10px; border-radius: 12px; }
-    .links a:hover{ background: rgba(255,255,255,.06); text-decoration:none; color: var(--text); }
-
-    .cta{
-      display:flex; align-items:center; gap:10px;
-    }
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:10px;
-      border-radius: 999px;
-      padding: 10px 14px;
-      font-weight: 700;
-      font-size: 13px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
-      box-shadow: 0 10px 24px rgba(0,0,0,.22);
-      cursor:pointer;
-    }
-    .btn:hover{ background: rgba(255,255,255,.10); text-decoration:none; }
-    .btn.primary{
-      border-color: rgba(214,240,74,.35);
-      background: linear-gradient(180deg, rgba(214,240,74,.22), rgba(214,240,74,.10));
-    }
-    .btn.primary:hover{
-      background: linear-gradient(180deg, rgba(214,240,74,.28), rgba(214,240,74,.12));
-    }
-
-    /* Layout */
-    .wrap{ max-width: var(--max); margin: 0 auto; padding: 0 18px; }
-    section{ padding: 64px 0; border-bottom: 1px solid var(--line); }
-    section:last-of-type{ border-bottom: none; }
-
-    .kicker{
-      font-family: var(--mono);
+    .brand-tag{
       font-size: 12px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: rgba(114,230,255,.85);
-    }
-    h1,h2,h3{ margin: 10px 0 0; }
-    h1{
-      font-size: clamp(32px, 4.2vw, 56px);
-      line-height: 1.02;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-      margin-top: 14px;
-    }
-    h2{
-      font-size: clamp(24px, 3vw, 34px);
-      line-height: 1.14;
-      letter-spacing: -0.01em;
-    }
-    p{
-      margin: 14px 0 0;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 15px;
+      opacity: .85;
+      margin-top: 2px;
     }
 
+    nav ul{
+      list-style:none;
+      display:flex;
+      align-items:center;
+      gap: 18px;
+      margin:0;
+      padding:0;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    nav a{
+      text-decoration:none;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      opacity: .92;
+      padding: 8px 10px;
+      border-radius: 999px;
+    }
+    nav a:hover{ background: rgba(255,255,255,.10); }
+    .nav-cta{
+      display:none;
+    }
+
+    @media (max-width: 880px){
+      nav{display:none;}
+      .nav-cta{
+        display:inline-flex;
+        text-decoration:none;
+        background: rgba(255,255,255,.12);
+        border: 1px solid rgba(255,255,255,.18);
+        color:#fff;
+        padding: 10px 12px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 13px;
+      }
+      .nav-cta:hover{ background: rgba(255,255,255,.18); }
+    }
+
+    /* Spark icon (inline SVG) */
+    .spark{ width: 34px; height: 34px; }
+    .spark path{ fill: var(--lime); }
+
+    /* HERO */
     .hero{
-      padding: 48px 0 70px;
-      border-bottom: 1px solid var(--line);
+      position:relative;
+      color:#fff;
+      background:
+        linear-gradient(0deg, rgba(8,52,69,.78), rgba(8,52,69,.78)),
+        url("assets/hero.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+    .hero-inner{
+      padding: 68px 0 84px;
     }
     .hero-grid{
       display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 22px;
-      align-items: stretch;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 34px;
+      align-items:end;
     }
-    .hero-card{
-      background: linear-gradient(180deg, rgba(10,30,40,.78), rgba(8,24,32,.72));
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+    .hero h1{
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      line-height: 1.02;
+      font-size: clamp(34px, 4.2vw, 54px);
+      font-weight: 900;
+    }
+    .hero h1 em{
+      font-style: italic;
+      font-weight: 900;
+    }
+    .hero h1 .line2{display:block; margin-top: 6px;}
+    .hero-right{
+      max-width: 540px;
+      justify-self:end;
+    }
+    .meet{
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .meet span{ color: var(--lime); }
+    .hero p{
+      margin: 10px 0 0;
+      color: rgba(255,255,255,.92);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+    .hero .small{
+      font-size: 13px;
+      opacity: .92;
+    }
+
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; align-items:start; }
+      .hero-right{ justify-self:start; }
+      .hero-inner{ padding: 56px 0 62px; }
+    }
+
+    /* Section base */
+    section{ padding: 70px 0; }
+    .kicker{
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin:0;
+      color: rgba(11,26,34,.72);
+    }
+    .title{
+      margin: 10px 0 0;
+      font-size: clamp(26px, 3.1vw, 36px);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+    .lead{
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+      max-width: 70ch;
+    }
+
+    /* Advantage (white) */
+    .advantage-grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 42px;
+      align-items:center;
+    }
+    .advantage h2 .ember{ font-weight: 900; }
+    .advantage h2 .strong{ font-weight: 900; }
+    .advantage-card{
+      position:relative;
+      display:grid;
+      place-items:center;
+    }
+    .circle-photo{
+      width: min(360px, 70vw);
+      aspect-ratio: 1 / 1;
+      border-radius: 999px;
       overflow:hidden;
-      position: relative;
-      padding: 26px;
-      min-height: 360px;
+      box-shadow: var(--shadow);
+      background: #eee;
     }
-    .hero-card::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(900px 360px at 20% 10%, rgba(214,240,74,.18), transparent 60%),
-        radial-gradient(700px 420px at 90% 0%, rgba(114,230,255,.18), transparent 58%);
+    .circle-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .spark-floating{
+      position:absolute;
+      right: -18px;
+      bottom: 18px;
+      transform: rotate(0deg);
+      width: 110px;
+      height: 110px;
+      display:grid;
+      place-items:center;
       pointer-events:none;
     }
-    .hero-card > *{ position:relative; z-index: 1; }
-    .hero-sub{
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-      margin-top: 16px;
+
+    @media (max-width: 980px){
+      .advantage-grid{ grid-template-columns: 1fr; gap: 26px; }
+      .advantage-card{ justify-items:start; }
+      .spark-floating{ right: -6px; bottom: -8px; width: 90px; height: 90px; }
+    }
+
+    /* Mission (dark band) */
+    .band{
+      background: var(--navy);
+      color:#fff;
+      overflow:hidden;
+    }
+    .band-grid{
+      display:grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 34px;
+      align-items:center;
+    }
+    .band h2, .band p{ color:#fff; }
+    .band .lead{ color: rgba(255,255,255,.86); max-width: 65ch;}
+    .band .mission-title{
+      font-size: clamp(22px, 2.6vw, 30px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      margin:0;
+    }
+    .mission-title span{ color: var(--lime); }
+    .cutout{
+      max-width: 520px;
+      filter: drop-shadow(0 22px 40px rgba(0,0,0,.28));
+    }
+    .cutout img{ width:100%; height:auto; display:block; }
+    .band .spark-inline{
+      width: 90px; height: 90px;
+      margin: 14px 0;
+    }
+
+    @media (max-width: 980px){
+      .band-grid{ grid-template-columns: 1fr; }
+      .cutout{ order: 2; max-width: 420px;}
+    }
+
+    /* Solutions */
+    .solutions .title span{ font-weight: 900; }
+    .solutions-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px 60px;
+      margin-top: 28px;
+    }
+    .solution{
+      display:grid;
+      grid-template-columns: 28px 1fr;
+      gap: 12px;
+      align-items:start;
+    }
+    .solution img{
+      width: 22px; height: 22px; margin-top: 2px;
+    }
+    .solution h3{
+      margin:0;
+      font-size: 14px;
+      font-weight: 900;
+      font-style: italic;
+    }
+    .solution p{
+      margin: 6px 0 0;
       color: var(--muted);
       font-size: 13px;
+      line-height: 1.55;
     }
-    .pill{
-      display:inline-flex;
-      padding: 6px 10px;
+    @media (max-width: 860px){
+      .solutions-grid{ grid-template-columns: 1fr; gap: 18px; }
+    }
+
+    /* Leadership band (teal) */
+    .leadership-band{
+      background: var(--navy2);
+      color:#fff;
+    }
+    .leadership-grid{
+      display:grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 34px;
+      align-items:center;
+    }
+    .leadership-band .kicker{ color: rgba(255,255,255,.70); }
+    .leadership-band .title{ color:#fff; }
+    .leadership-band .lead{ color: rgba(255,255,255,.86); }
+    .leadership-band .title strong{ font-weight: 900; }
+    @media (max-width: 980px){
+      .leadership-grid{ grid-template-columns: 1fr; }
+    }
+
+    /* Team cards */
+    .team-title{
+      text-align:center;
+      font-size: clamp(20px, 2.6vw, 30px);
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      margin:0;
+      color: rgba(11,26,34,.78);
+    }
+    .team-title strong{ color: var(--ink); }
+    .team-grid{
+      margin-top: 34px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .person{
+      padding: 18px 16px 18px;
+    }
+    .avatar-wrap{
+      position: relative;
+      width: 132px;
+      height: 132px;
+      margin: 0 auto 12px;
+    }
+    .avatar{
+      width: 132px; height: 132px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
+      overflow:hidden;
+      background:#eaeaea;
+      box-shadow: var(--shadow);
     }
-    .headline-accent{ color: var(--accent); }
-    .quote{
-      margin-top: 18px;
-      padding-left: 14px;
-      border-left: 3px solid rgba(214,240,74,.45);
-      color: rgba(232,243,246,.86);
-      font-size: 15px;
+    .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .avatar-spark{
+      position:absolute;
+      right: -10px; top: 14px;
+      width: 56px; height: 56px;
+      pointer-events:none;
+    }
+    .person h3{
+      margin:0;
+      text-align:center;
+      text-transform: uppercase;
+      letter-spacing:.06em;
+      font-weight: 900;
+      font-size: 14px;
+      color: rgba(11,26,34,.86);
+    }
+    .person .meta{
+      text-align:center;
+      margin-top: 6px;
+      font-size: 12px;
+      color: rgba(11,26,34,.62);
+      line-height: 1.4;
+    }
+    .person .bio{
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+      max-width: 34ch;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    @media (max-width: 980px){
+      .team-grid{ grid-template-columns: 1fr; max-width: 520px; margin-left:auto; margin-right:auto; }
+    }
+
+    /* Contact */
+    .contact{
+      background: var(--lime);
+    }
+    .contact-grid{
+      display:grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 34px;
+      align-items:start;
+      padding-bottom: 30px;
+    }
+    .contact h2{
+      margin:0;
+      color:#fff;
+      font-weight: 900;
+      letter-spacing:.06em;
+      text-transform: uppercase;
+      font-size: clamp(36px, 5vw, 52px);
+      line-height: 0.95;
+    }
+    .contact h2 .small{
+      display:block;
+      margin-top: 10px;
+      font-size: 22px;
+      letter-spacing: .02em;
+    }
+    .contact p{
+      margin: 10px 0 0;
+      color: rgba(0,0,0,.60);
+      font-style: italic;
+      font-weight: 700;
+      max-width: 60ch;
+      line-height: 1.4;
+    }
+    .address{
+      margin-top: 20px;
+      color: rgba(0,0,0,.62);
+      font-size: 12px;
       line-height: 1.6;
     }
 
-    .side{
-      display:flex;
-      flex-direction:column;
-      gap: 16px;
-    }
-    .panel{
-      background: var(--panel);
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 18px;
-    }
-    .panel h3{
-      margin: 0;
-      font-size: 14px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: rgba(232,243,246,.92);
-    }
-    .panel ul{
-      margin: 12px 0 0;
-      padding: 0;
-      list-style: none;
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-    .panel li{
-      padding-left: 28px;
-      position: relative;
-    }
-    .panel li::before{
-      content:"";
-      width: 14px; height: 14px;
-      border-radius: 50%;
-      position:absolute; left: 0; top: 3px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 55%),
-                  linear-gradient(180deg, rgba(214,240,74,.85), rgba(214,240,74,.25));
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 8px 18px rgba(0,0,0,.22);
-    }
-
-    /* Sections */
-    .two-col{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 22px;
-      align-items: start;
-    }
-    .callout{
-      background: linear-gradient(180deg, rgba(214,240,74,.14), rgba(214,240,74,.06));
-      border: 1px solid rgba(214,240,74,.26);
-      border-radius: var(--radius);
-      padding: 18px;
-    }
-    .callout .label{
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: .10em;
-      text-transform: uppercase;
-      color: rgba(214,240,74,.95);
-    }
-
-    .cards{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 18px;
-    }
-    .card{
-      background: var(--panel2);
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 18px;
-      padding: 16px;
-      box-shadow: 0 12px 28px rgba(0,0,0,.25);
-      min-height: 150px;
-    }
-    .card h3{
-      margin: 0 0 8px;
-      font-size: 15px;
-      letter-spacing: -0.01em;
-      color: rgba(232,243,246,.95);
-    }
-    .card p{ margin-top: 0; font-size: 13.5px; }
-
-    .leadership{
-      margin-top: 18px;
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    .person{
-      background: var(--panel2);
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 18px;
-      padding: 16px;
-      box-shadow: 0 12px 28px rgba(0,0,0,.25);
-    }
-    .person-top{
-      display:flex;
-      gap: 12px;
-      align-items:center;
-      margin-bottom: 10px;
-    }
-    .avatar{
-      width: 58px; height: 58px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background:
-        radial-gradient(14px 14px at 30% 30%, rgba(255,255,255,.22), transparent 55%),
-        radial-gradient(60px 60px at 60% 60%, rgba(214,240,74,.18), transparent 60%),
-        linear-gradient(180deg, rgba(114,230,255,.22), rgba(255,255,255,.06));
-      box-shadow: 0 12px 26px rgba(0,0,0,.25);
-      flex: 0 0 auto;
-    }
-    .person h3{ margin:0; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; }
-    .role{ margin: 2px 0 0; font-size: 12px; color: var(--muted); }
-
-    .contact{
-      background: linear-gradient(180deg, rgba(214,240,74,.85), rgba(214,240,74,.65));
-      color: #0b1215;
-    }
-    .contact a{ color: #0b1215; }
-    .contact .wrap{ padding-top: 54px; padding-bottom: 54px; }
-    .contact-grid{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 22px;
-      align-items: start;
-    }
-    .contact h2{ margin-top: 0; }
-    .contact p{ color: rgba(11,18,21,.78); }
-    .contact-panel{
-      background: rgba(255,255,255,.55);
-      border: 1px solid rgba(11,18,21,.10);
-      border-radius: 18px;
-      padding: 16px;
-      box-shadow: 0 16px 40px rgba(0,0,0,.18);
-    }
-    .field{ display:flex; flex-direction:column; gap:6px; margin-top: 10px; }
-    label{ font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: rgba(11,18,21,.70); }
-    input, textarea{
-      width: 100%;
-      border-radius: 14px;
-      border: 1px solid rgba(11,18,21,.18);
-      padding: 10px 12px;
-      font-family: var(--sans);
-      font-size: 14px;
-      outline: none;
-      background: rgba(255,255,255,.85);
-    }
-    textarea{ min-height: 96px; resize: vertical; }
-    .note{
-      margin-top: 10px;
-      font-size: 12px;
-      color: rgba(11,18,21,.68);
-      line-height: 1.45;
-    }
-
-    footer{
-      border-top: 1px solid rgba(11,18,21,.16);
-      margin-top: 18px;
+    form{
+      background: rgba(255,255,255,.0);
       padding-top: 12px;
-      display:flex; justify-content:space-between; align-items:center;
-      gap: 14px;
-      flex-wrap: wrap;
-      font-size: 12px;
-      color: rgba(11,18,21,.70);
+    }
+    .field{
+      margin-top: 14px;
+    }
+    input, textarea{
+      width:100%;
+      border: 0;
+      outline: none;
+      padding: 12px 12px;
+      border-radius: 3px;
+      font-size: 14px;
+      font-family: var(--sans);
+      background: rgba(255,255,255,.80);
+    }
+    textarea{ min-height: 110px; resize: vertical; }
+
+    .send{
+      margin-top: 12px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.18);
+      background: rgba(255,255,255,.22);
+      font-weight: 800;
+      cursor:pointer;
+    }
+    .send:hover{ background: rgba(255,255,255,.32); }
+
+    @media (max-width: 980px){
+      .contact-grid{ grid-template-columns: 1fr; }
     }
 
-    /* Responsive */
-    @media (max-width: 980px){
-      .hero-grid{ grid-template-columns: 1fr; }
-      .contact-grid{ grid-template-columns: 1fr; }
-      .two-col{ grid-template-columns: 1fr; }
-      .cards{ grid-template-columns: 1fr; }
-      .leadership{ grid-template-columns: 1fr; }
-      .links{ display:none; }
+    /* Footer strip */
+    .footer{
+      background: var(--navy);
+      color: rgba(255,255,255,.85);
+      padding: 16px 0;
+      font-size: 12px;
+    }
+    .footer-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+    .footer-brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight: 900;
+      letter-spacing:.10em;
+      text-transform: uppercase;
+      color:#fff;
     }
   </style>
 </head>
 
 <body>
-  <div class="topbar">
-    <div class="nav">
-      <a class="brand" href="#top" aria-label="Ember Home">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>EMBER</span>
-      </a>
-
-      <nav class="links" aria-label="Primary">
-        <a href="#advantage">The Ember Advantage</a>
-        <a href="#mission">Our Mission</a>
-        <a href="#solutions">Our Solutions</a>
-        <a href="#leadership">Our Leadership</a>
-        <a href="#contact">Contact Us</a>
-      </nav>
-
-      <div class="cta">
-        <a class="btn primary" href="#contact">Meet Ember</a>
-      </div>
-    </div>
-  </div>
-
-  <main id="top">
-    <!-- HERO -->
-    <div class="hero">
-      <div class="wrap">
-        <div class="hero-grid">
-          <div class="hero-card">
-            <div class="kicker">A New Kind of Mutual Partnership</div>
-            <h1>
-              Igniting Progress.<br/>
-              <span class="headline-accent">Preserving Tradition.</span>
-            </h1>
-
-            <p>
-              We partner with legacy mutuals to help them evolve for the future while honoring their roots—
-              combining modern tools with mutual spirit to create sustainable growth.
-            </p>
-
-            <div class="quote">
-              At their core, mutuals are about people: connected by trust, grounded in tradition, and united by community.
-              Ember brings together the systems and support mutuals need to thrive.
-            </div>
-
-            <div class="hero-sub">
-              <span class="pill">Modern tools</span>
-              <span class="pill">Mutual spirit</span>
-              <span class="pill">Sustainable growth</span>
-            </div>
-
-            <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn primary" href="#advantage">The Ember Advantage</a>
-              <a class="btn" href="#solutions">Explore Solutions</a>
-            </div>
-          </div>
-
-          <div class="side">
-            <div class="panel">
-              <h3>Why Ember</h3>
-              <ul>
-                <li>Leaders stretched thin, outdated systems, limited access to technology or resources.</li>
-                <li>Modernize with purpose—keeping the heart, history, and independence that define your mutual.</li>
-                <li><strong style="color:rgba(232,243,246,.92)">Not acquisition — alignment.</strong></li>
-              </ul>
-            </div>
-
-            <div class="panel">
-              <h3>What You Keep</h3>
-              <ul>
-                <li>Your ownership.</li>
-                <li>Your brand.</li>
-                <li>Your strength.</li>
-                <li>Your control.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ADVANTAGE -->
-    <section id="advantage">
-      <div class="wrap">
-        <div class="kicker">The Ember Advantage</div>
-        <h2>Revive and reinforce what’s been built.</h2>
-        <div class="two-col">
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="#top">
+          <span class="brand-mark" aria-hidden="true">
+            <svg class="spark" viewBox="0 0 64 64" role="img" aria-label="Ember mark">
+              <path d="M30.6 4.6c1.1 10.8-4.7 18.5-14.9 24.4 10.2-1.4 18.1 1.7 23.4 10.7C38.3 30.3 42.2 22 52.8 15.8c-10.7.9-17.9-2.8-22.2-11.2z"/>
+              <path d="M18.2 33.8c9.2 3.1 14.5 9.3 16.1 19.6 2-9.4 7.5-15 17.4-17.2-9.5-2-15.2-7.2-17.3-16.5-2.4 9.2-7.9 13.9-16.2 14.1z"/>
+            </svg>
+          </span>
           <div>
-            <p>
-              Across the country, many long-standing mutuals face familiar challenges: leaders stretched thin,
-              outdated systems, and limited access to technology or resources. Growth feels out of reach, and
-              legacy is at risk.
-            </p>
-            <p>
-              Ember exists to change that, not by replacing what’s been built but by reviving and reinforcing it.
-              We help mutuals modernize with purpose, keeping the heart, history, and independence that define who they are.
-            </p>
-            <p style="margin-top:14px; color:rgba(232,243,246,.88); font-weight:700;">
-              Ember isn’t about acquisition — it’s about alignment.
-            </p>
+            <div class="brand-word">EMBER</div>
+            <div class="brand-tag">A New Kind of Mutual Partnership</div>
           </div>
+        </a>
 
-          <div class="callout">
-            <div class="label">Together</div>
-            <p style="margin-top:10px;">
-              We create stability, shared strength, and renewed momentum, while preserving what matters most:
-              the legacy and identity at the core of your mutual.
-            </p>
+        <nav aria-label="Primary navigation">
+          <ul>
+            <li><a href="#advantage">The Ember Advantage</a></li>
+            <li><a href="#mission">Our Mission</a></li>
+            <li><a href="#solutions">Our Solutions</a></li>
+            <li><a href="#leadership">Our Leadership</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </nav>
+
+        <a class="nav-cta" href="#contact">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="hero" aria-label="Hero">
+    <div class="wrap hero-inner">
+      <div class="hero-grid">
+        <div>
+          <h1>
+            <em>IGNITING</em> PROGRESS.<br />
+            <span class="line2"><em>PRESERVING</em> TRADITION.</span>
+          </h1>
+        </div>
+
+        <div class="hero-right">
+          <p class="meet">MEET <span>EMBER</span></p>
+          <p>
+            We partner with legacy mutuals to help them evolve for the future while honoring their roots—combining modern tools with mutual spirit to create sustainable growth.
+          </p>
+          <p class="small">
+            At their core, mutuals are about people: connected by trust, grounded in tradition, and united by community.
+            Ember brings together the systems and support mutuals need to thrive. We help modernize operations, strengthen teams,
+            and empower them to keep serving their members and communities with pride.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADVANTAGE -->
+  <section id="advantage" class="advantage" aria-label="The Ember Advantage">
+    <div class="wrap">
+      <p class="kicker">The <strong>EMBER</strong> Advantage</p>
+      <h2 class="title">Ember isn’t about acquisition — it’s about alignment.</h2>
+
+      <div class="advantage-grid" style="margin-top:22px;">
+        <div>
+          <p class="lead">
+            Across the country, many long-standing mutuals face familiar challenges: leaders stretched thin, outdated systems, and limited access to technology or resources. Growth feels out of reach, and legacy is at risk.
+          </p>
+          <p class="lead">
+            Ember exists to change that, not by replacing what’s been built but by reviving and reinforcing it. We help mutuals modernize with purpose, keeping the heart, history, and independence that define who they are.
+          </p>
+        </div>
+
+        <div class="advantage-card">
+          <div class="circle-photo" aria-hidden="true">
+            <img src="assets/advantage.jpg" alt="" />
+          </div>
+          <div class="spark-floating" aria-hidden="true">
+            <svg viewBox="0 0 64 64" class="spark" style="width:100%;height:100%;">
+              <path d="M30.6 4.6c1.1 10.8-4.7 18.5-14.9 24.4 10.2-1.4 18.1 1.7 23.4 10.7C38.3 30.3 42.2 22 52.8 15.8c-10.7.9-17.9-2.8-22.2-11.2z"/>
+              <path d="M18.2 33.8c9.2 3.1 14.5 9.3 16.1 19.6 2-9.4 7.5-15 17.4-17.2-9.5-2-15.2-7.2-17.3-16.5-2.4 9.2-7.9 13.9-16.2 14.1z"/>
+            </svg>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- MISSION -->
-    <section id="mission">
-      <div class="wrap">
-        <div class="kicker">Our Mission</div>
-        <h2>Our mission is simple.</h2>
-        <p style="max-width: 74ch;">
-          To protect your independence, strengthen your foundation, and share the kind of resources that spark new growth
-          and confidence.
-        </p>
+  <!-- MISSION BAND -->
+  <section id="mission" class="band" aria-label="Our Mission">
+    <div class="wrap">
+      <div class="band-grid">
+        <div class="cutout" aria-hidden="true">
+          <img src="assets/couple.png" alt="" />
+        </div>
+
+        <div>
+          <p class="mission-title">OUR <span>MISSION</span> IS SIMPLE:</p>
+          <p class="lead" style="margin-top:12px;">
+            To protect your independence, strengthen your foundation, and share the kind of resources that spark new growth and confidence.
+          </p>
+
+          <svg class="spark-inline" viewBox="0 0 64 64" aria-hidden="true">
+            <path fill="var(--lime)" d="M30.6 4.6c1.1 10.8-4.7 18.5-14.9 24.4 10.2-1.4 18.1 1.7 23.4 10.7C38.3 30.3 42.2 22 52.8 15.8c-10.7.9-17.9-2.8-22.2-11.2z"/>
+            <path fill="var(--lime)" d="M18.2 33.8c9.2 3.1 14.5 9.3 16.1 19.6 2-9.4 7.5-15 17.4-17.2-9.5-2-15.2-7.2-17.3-16.5-2.4 9.2-7.9 13.9-16.2 14.1z"/>
+          </svg>
+
+          <p class="lead">
+            Together, we create stability, shared strength, and renewed momentum, while preserving what matters most:
+            the legacy and identity at the core of your mutual.
+          </p>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- SOLUTIONS -->
-    <section id="solutions">
-      <div class="wrap">
-        <div class="kicker">Our Solutions</div>
-        <h2>Flexible, scalable services under one roof.</h2>
-        <p style="max-width: 92ch;">
-          When our resources meet your local expertise, strength multiplies—creating smoother operations,
-          smarter decisions, and sustainable growth, all while preserving your independence.
-        </p>
+  <!-- SOLUTIONS -->
+  <section id="solutions" class="solutions" aria-label="Our Solutions">
+    <div class="wrap">
+      <h2 class="title" style="text-align:center; margin-bottom:10px;">OUR <span>SOLUTIONS</span></h2>
+      <p class="lead" style="margin-left:auto;margin-right:auto;text-align:center;">
+        When our resources meet your local expertise, strength multiplies—creating smoother operations, smarter decisions, and sustainable growth —
+        all while preserving your independence. We offer a complete suite of services under one roof: flexible, scalable, and ready to fit your mutual’s needs.
+      </p>
 
-        <div class="cards" role="list">
-          <div class="card" role="listitem">
+      <div class="solutions-grid" aria-label="Solutions list">
+        <div class="solution">
+          <img src="assets/icon-gradient.png" alt="" aria-hidden="true" />
+          <div>
             <h3>Integrated Capital</h3>
-            <p>Tailored funding that reinforces mutual strength and drives lasting profitability.</p>
+            <p>Tailored funding that reinforces mutual strength &amp; drives lasting profitability.</p>
           </div>
+        </div>
 
-          <div class="card" role="listitem">
-            <h3>Underwriting &amp; Claims Support</h3>
-            <p>Shared best practices and scalable resources so your team can focus on what matters most—your members.</p>
-          </div>
-
-          <div class="card" role="listitem">
-            <h3>Compliance, Operational Guidance, &amp; Reinsurance Support</h3>
-            <p>Navigate change, regulation, and risk with a trusted partner—from compliance oversight to strategic reinsurance.</p>
-          </div>
-
-          <div class="card" role="listitem">
+        <div class="solution">
+          <img src="assets/icon-gradient.png" alt="" aria-hidden="true" />
+          <div>
             <h3>Technology &amp; Systems Modernization</h3>
-            <p>Secure, modern platforms for policy, billing, and claims management built for today—and ready for tomorrow.</p>
+            <p>Streamline your operations with secure, modern platforms for policy, billing, and claims management that meet today’s demands and prepare you for tomorrow’s opportunities.</p>
           </div>
+        </div>
 
-          <div class="card" role="listitem">
+        <div class="solution">
+          <img src="assets/icon-gradient.png" alt="" aria-hidden="true" />
+          <div>
+            <h3>Underwriting &amp; Claims Support</h3>
+            <p>Gain efficiency and expertise through shared best practices and scalable resources that help your team focus on what matters most — your members.</p>
+          </div>
+        </div>
+
+        <div class="solution">
+          <img src="assets/icon-gradient.png" alt="" aria-hidden="true" />
+          <div>
             <h3>Marketing &amp; Brand Development</h3>
-            <p>Creative strategy, storytelling, and design that connect with today’s policyholders while honoring your legacy.</p>
+            <p>Reintroduce your mutual with creative strategy, storytelling, and design that connect with today’s policyholders while honoring the legacy your community trusts.</p>
           </div>
+        </div>
 
-          <div class="card" role="listitem">
+        <div class="solution">
+          <img src="assets/icon-gradient.png" alt="" aria-hidden="true" />
+          <div>
+            <h3>Compliance, Operational Guidance, &amp; Reinsurance Support</h3>
+            <p>Navigate change, regulation, and risk with a trusted partner who understands the mutual difference — from compliance oversight to strategic reinsurance solutions that safeguard your stability.</p>
+          </div>
+        </div>
+
+        <div class="solution">
+          <img src="assets/icon-gradient.png" alt="" aria-hidden="true" />
+          <div>
             <h3>Training &amp; Leadership Development</h3>
             <p>Equip your people with the skills and tools to adapt, grow, and lead confidently into the future.</p>
           </div>
         </div>
-
-        <p style="margin-top:18px; color:rgba(232,243,246,.86);">
-          We’re not here to take over. We’re here to stand beside you—reinforcing what already works and thoughtfully building what’s next.
-        </p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- LEADERSHIP -->
-    <section id="leadership">
-      <div class="wrap">
-        <div class="kicker">Our Leadership</div>
-        <h2>Built by Mutuals, for Mutuals.</h2>
-        <p style="max-width: 92ch;">
-          Our leadership team has walked in your shoes—underwriting, claims, operations, marketing, technology, and finance.
-          That perspective shapes everything we do.
-        </p>
+  <!-- LEADERSHIP BAND -->
+  <section id="leadership" class="leadership-band" aria-label="Leadership you can trust">
+    <div class="wrap">
+      <div class="leadership-grid">
+        <div class="cutout" aria-hidden="true" style="max-width:520px;">
+          <img src="assets/couple.png" alt="" />
+        </div>
 
-        <h3 style="margin-top:22px; font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,243,246,.86);">
-          Meet the Mutual Minds Behind Ember
-        </h3>
-
-        <div class="leadership">
-          <!-- Replace placeholders with real people/headshots as needed -->
-          <div class="person">
-            <div class="person-top">
-              <div class="avatar" aria-hidden="true"></div>
-              <div>
-                <h3>Jake Black</h3>
-                <div class="role">Title of Person</div>
-              </div>
-            </div>
-            <p>
-              [Add a short bio: experience, years in the mutual industry, and the kind of problems they’ve solved.]
-            </p>
-          </div>
-
-          <div class="person">
-            <div class="person-top">
-              <div class="avatar" aria-hidden="true"></div>
-              <div>
-                <h3>Jake Black</h3>
-                <div class="role">Title of Person</div>
-              </div>
-            </div>
-            <p>
-              [Add a short bio. Consider focusing on operations/technology modernization and team enablement.]
-            </p>
-          </div>
-
-          <div class="person">
-            <div class="person-top">
-              <div class="avatar" aria-hidden="true"></div>
-              <div>
-                <h3>Jake Black</h3>
-                <div class="role">Title of Person</div>
-              </div>
-            </div>
-            <p>
-              [Add a short bio. Consider focusing on underwriting/claims excellence, compliance, or reinsurance strategy.]
-            </p>
-          </div>
+        <div>
+          <p class="kicker">Leadership you</p>
+          <h2 class="title"><strong>CAN TRUST</strong><br/><span style="font-weight:500; font-style: italic;">Built by Mutuals, for Mutuals</span></h2>
+          <p class="lead">
+            We’re not here to take over. We’re here to stand beside you, reinforcing what already works and thoughtfully building what’s next.
+          </p>
+          <p class="lead">
+            Our leadership team has walked in your shoes, managing underwriting and claims, operations, marketing, technology, and finance at some of the most successful and forward-thinking mutuals.
+          </p>
+          <p class="lead">
+            With decades of experience and a deep understanding of the mutual industry, Ember offers something rare: a partnership built on trust, influenced by legacy, and inspired by the promise of what’s ahead.
+          </p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="contact">
-      <div class="wrap">
-        <div class="kicker" style="color: rgba(11,18,21,.65);">Contact Us</div>
-        <h2>Let’s keep the fire alive.</h2>
-        <p style="max-width: 80ch;">
-          Discover how Ember can power a new era of growth for your mutual.
-        </p>
+  <!-- TEAM -->
+  <section aria-label="Meet the Mutual Minds Behind Ember">
+    <div class="wrap">
+      <h2 class="team-title">MEET THE <strong>MUTUAL MINDS</strong> BEHIND <strong>EMBER</strong></h2>
 
-        <div class="contact-grid" style="margin-top:18px;">
-          <div>
-            <div class="contact-panel">
-              <strong>Email</strong><br/>
-              <a href="mailto:email@embermutual.com">email@embermutual.com</a>
-              <p style="margin-top:10px;">
-                Ember Street Address<br/>
-                City, State, 000000<br/>
-                Phone: 000.000.0000
-              </p>
-              <p class="note">
-                This form is a visual placeholder (GitHub Pages is static). If you want submissions,
-                wire this to a service like Formspree, Basin, or a simple serverless endpoint.
-              </p>
-            </div>
+      <div class="team-grid">
+        <article class="person">
+          <div class="avatar-wrap" aria-hidden="true">
+            <div class="avatar"><img src="assets/headshot.png" alt="" /></div>
+            <svg class="avatar-spark" viewBox="0 0 64 64">
+              <path fill="var(--lime)" d="M30.6 4.6c1.1 10.8-4.7 18.5-14.9 24.4 10.2-1.4 18.1 1.7 23.4 10.7C38.3 30.3 42.2 22 52.8 15.8c-10.7.9-17.9-2.8-22.2-11.2z"/>
+              <path fill="var(--lime)" d="M18.2 33.8c9.2 3.1 14.5 9.3 16.1 19.6 2-9.4 7.5-15 17.4-17.2-9.5-2-15.2-7.2-17.3-16.5-2.4 9.2-7.9 13.9-16.2 14.1z"/>
+            </svg>
           </div>
+          <h3>JAKE BLACK</h3>
+          <div class="meta"><em>Title of Person</em><br/>email@embermutual.com</div>
+          <p class="bio">
+            [Put a short bio here: transparent about the people responsible for helping mutuals survive &amp; thrive.
+            Keep this to ~3–5 lines for mobile readability.]
+          </p>
+        </article>
 
-          <div class="contact-panel">
-            <form onsubmit="return false;">
-              <div class="field">
-                <label for="name">Name</label>
-                <input id="name" name="name" placeholder="Your name" autocomplete="name" />
-              </div>
-              <div class="field">
-                <label for="email">Email</label>
-                <input id="email" name="email" type="email" placeholder="you@company.com" autocomplete="email" />
-              </div>
-              <div class="field">
-                <label for="msg">Message</label>
-                <textarea id="msg" name="msg" placeholder="Tell us about your mutual and what you’re looking to modernize."></textarea>
-              </div>
+        <article class="person">
+          <div class="avatar-wrap" aria-hidden="true">
+            <div class="avatar"><img src="assets/headshot.png" alt="" /></div>
+            <svg class="avatar-spark" viewBox="0 0 64 64">
+              <path fill="var(--lime)" d="M30.6 4.6c1.1 10.8-4.7 18.5-14.9 24.4 10.2-1.4 18.1 1.7 23.4 10.7C38.3 30.3 42.2 22 52.8 15.8c-10.7.9-17.9-2.8-22.2-11.2z"/>
+              <path fill="var(--lime)" d="M18.2 33.8c9.2 3.1 14.5 9.3 16.1 19.6 2-9.4 7.5-15 17.4-17.2-9.5-2-15.2-7.2-17.3-16.5-2.4 9.2-7.9 13.9-16.2 14.1z"/>
+            </svg>
+          </div>
+          <h3>JAKE BLACK</h3>
+          <div class="meta"><em>Title of Person</em><br/>email@embermutual.com</div>
+          <p class="bio">
+            [Add a short bio: focus on underwriting/claims excellence, compliance, or reinsurance strategy.]
+          </p>
+        </article>
 
-              <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
-                <button class="btn primary" type="button" onclick="alert('This demo form does not submit (static site). Replace with Formspree/Basin/etc.');">
-                  Send Message
-                </button>
-                <a class="btn" href="mailto:email@embermutual.com?subject=Meet%20Ember">Email Instead</a>
-              </div>
-            </form>
+        <article class="person">
+          <div class="avatar-wrap" aria-hidden="true">
+            <div class="avatar"><img src="assets/headshot.png" alt="" /></div>
+            <svg class="avatar-spark" viewBox="0 0 64 64">
+              <path fill="var(--lime)" d="M30.6 4.6c1.1 10.8-4.7 18.5-14.9 24.4 10.2-1.4 18.1 1.7 23.4 10.7C38.3 30.3 42.2 22 52.8 15.8c-10.7.9-17.9-2.8-22.2-11.2z"/>
+              <path fill="var(--lime)" d="M18.2 33.8c9.2 3.1 14.5 9.3 16.1 19.6 2-9.4 7.5-15 17.4-17.2-9.5-2-15.2-7.2-17.3-16.5-2.4 9.2-7.9 13.9-16.2 14.1z"/>
+            </svg>
+          </div>
+          <h3>JAKE BLACK</h3>
+          <div class="meta"><em>Title of Person</em><br/>email@embermutual.com</div>
+          <p class="bio">
+            [Add a short bio: focus on technology modernization, operations enablement, and leadership development.]
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact" aria-label="Contact us">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div>
+          <h2>EMBER<span class="small">LET’S KEEP THE <span style="color:#fff;">FIRE</span> ALIVE.</span></h2>
+          <p>Discover how Ember can power a new era of growth for your mutual.</p>
+
+          <div class="address">
+            Ember Street Address<br/>
+            City, State, 000000<br/><br/>
+            Phone:<br/>
+            000.000.0000
           </div>
         </div>
 
-        <footer>
-          <div><strong>EMBER</strong> — Mutual spirit, modern tools.</div>
+        <div>
+          <form onsubmit="return false;">
+            <div class="field"><input placeholder="Name" aria-label="Name" /></div>
+            <div class="field"><input placeholder="Email" aria-label="Email" type="email" /></div>
+            <div class="field"><textarea placeholder="Message" aria-label="Message"></textarea></div>
+            <button class="send" type="button" onclick="alert('This is a static GitHub Pages demo. Hook this to Formspree/Basin if you want submissions.');">
+              Send
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+      <div class="wrap">
+        <div class="footer-inner">
           <div>Footer Information</div>
-        </footer>
+          <div class="footer-brand">
+            <svg class="spark" viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M30.6 4.6c1.1 10.8-4.7 18.5-14.9 24.4 10.2-1.4 18.1 1.7 23.4 10.7C38.3 30.3 42.2 22 52.8 15.8c-10.7.9-17.9-2.8-22.2-11.2z"/>
+              <path d="M18.2 33.8c9.2 3.1 14.5 9.3 16.1 19.6 2-9.4 7.5-15 17.4-17.2-9.5-2-15.2-7.2-17.3-16.5-2.4 9.2-7.9 13.9-16.2 14.1z"/>
+            </svg>
+            EMBER
+          </div>
+        </div>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
+
 </body>
 </html>
