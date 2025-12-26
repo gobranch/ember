@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ember — A New Kind of Mutual Partnership</title>
+  <meta name="description" content="Ember partners with legacy mutuals to help them evolve for the future while honoring their roots." />
+
+  <style>
+    :root{
+      --bg: #07131a;
+      --panel: rgba(8, 24, 32, .78);
+      --panel2: rgba(10, 30, 40, .92);
+      --text: #e8f3f6;
+      --muted: rgba(232, 243, 246, .72);
+      --line: rgba(232, 243, 246, .12);
+      --accent: #d6f04a;     /* ember yellow-green vibe */
+      --accent2:#72e6ff;     /* cool cyan highlight */
+      --shadow: 0 14px 40px rgba(0,0,0,.38);
+      --radius: 22px;
+      --max: 1120px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 75% 15%, rgba(114,230,255,.18), transparent 55%),
+        radial-gradient(1000px 600px at 20% 10%, rgba(214,240,74,.16), transparent 60%),
+        linear-gradient(180deg, #041017 0%, #07131a 35%, #041017 100%);
+      min-height:100vh;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:3px; }
+
+    /* Top nav */
+    .topbar{
+      position: sticky; top:0; z-index: 50;
+      background: rgba(4, 16, 23, .66);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 12px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: 15px;
+    }
+    .brand-mark{
+      width:34px; height:34px; border-radius: 10px;
+      background:
+        radial-gradient(10px 10px at 30% 30%, rgba(255,255,255,.35), transparent 50%),
+        conic-gradient(from 220deg, var(--accent), rgba(214,240,74,.2), rgba(114,230,255,.35), var(--accent));
+      box-shadow: 0 10px 22px rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .links{
+      display:flex; align-items:center; gap:18px;
+      font-size: 13px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .links a{ padding: 8px 10px; border-radius: 12px; }
+    .links a:hover{ background: rgba(255,255,255,.06); text-decoration:none; color: var(--text); }
+
+    .cta{
+      display:flex; align-items:center; gap:10px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 700;
+      font-size: 13px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+      cursor:pointer;
+    }
+    .btn:hover{ background: rgba(255,255,255,.10); text-decoration:none; }
+    .btn.primary{
+      border-color: rgba(214,240,74,.35);
+      background: linear-gradient(180deg, rgba(214,240,74,.22), rgba(214,240,74,.10));
+    }
+    .btn.primary:hover{
+      background: linear-gradient(180deg, rgba(214,240,74,.28), rgba(214,240,74,.12));
+    }
+
+    /* Layout */
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 0 18px; }
+    section{ padding: 64px 0; border-bottom: 1px solid var(--line); }
+    section:last-of-type{ border-bottom: none; }
+
+    .kicker{
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(114,230,255,.85);
+    }
+    h1,h2,h3{ margin: 10px 0 0; }
+    h1{
+      font-size: clamp(32px, 4.2vw, 56px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      margin-top: 14px;
+    }
+    h2{
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.14;
+      letter-spacing: -0.01em;
+    }
+    p{
+      margin: 14px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .hero{
+      padding: 48px 0 70px;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+    .hero-card{
+      background: linear-gradient(180deg, rgba(10,30,40,.78), rgba(8,24,32,.72));
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position: relative;
+      padding: 26px;
+      min-height: 360px;
+    }
+    .hero-card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(900px 360px at 20% 10%, rgba(214,240,74,.18), transparent 60%),
+        radial-gradient(700px 420px at 90% 0%, rgba(114,230,255,.18), transparent 58%);
+      pointer-events:none;
+    }
+    .hero-card > *{ position:relative; z-index: 1; }
+    .hero-sub{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .pill{
+      display:inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+    }
+    .headline-accent{ color: var(--accent); }
+    .quote{
+      margin-top: 18px;
+      padding-left: 14px;
+      border-left: 3px solid rgba(214,240,74,.45);
+      color: rgba(232,243,246,.86);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .side{
+      display:flex;
+      flex-direction:column;
+      gap: 16px;
+    }
+    .panel{
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .panel h3{
+      margin: 0;
+      font-size: 14px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(232,243,246,.92);
+    }
+    .panel ul{
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .panel li{
+      padding-left: 28px;
+      position: relative;
+    }
+    .panel li::before{
+      content:"";
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      position:absolute; left: 0; top: 3px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 55%),
+                  linear-gradient(180deg, rgba(214,240,74,.85), rgba(214,240,74,.25));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 8px 18px rgba(0,0,0,.22);
+    }
+
+    /* Sections */
+    .two-col{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+    .callout{
+      background: linear-gradient(180deg, rgba(214,240,74,.14), rgba(214,240,74,.06));
+      border: 1px solid rgba(214,240,74,.26);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    .callout .label{
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      color: rgba(214,240,74,.95);
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 18px;
+    }
+    .card{
+      background: var(--panel2);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.25);
+      min-height: 150px;
+    }
+    .card h3{
+      margin: 0 0 8px;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      color: rgba(232,243,246,.95);
+    }
+    .card p{ margin-top: 0; font-size: 13.5px; }
+
+    .leadership{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .person{
+      background: var(--panel2);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.25);
+    }
+    .person-top{
+      display:flex;
+      gap: 12px;
+      align-items:center;
+      margin-bottom: 10px;
+    }
+    .avatar{
+      width: 58px; height: 58px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(14px 14px at 30% 30%, rgba(255,255,255,.22), transparent 55%),
+        radial-gradient(60px 60px at 60% 60%, rgba(214,240,74,.18), transparent 60%),
+        linear-gradient(180deg, rgba(114,230,255,.22), rgba(255,255,255,.06));
+      box-shadow: 0 12px 26px rgba(0,0,0,.25);
+      flex: 0 0 auto;
+    }
+    .person h3{ margin:0; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; }
+    .role{ margin: 2px 0 0; font-size: 12px; color: var(--muted); }
+
+    .contact{
+      background: linear-gradient(180deg, rgba(214,240,74,.85), rgba(214,240,74,.65));
+      color: #0b1215;
+    }
+    .contact a{ color: #0b1215; }
+    .contact .wrap{ padding-top: 54px; padding-bottom: 54px; }
+    .contact-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 22px;
+      align-items: start;
+    }
+    .contact h2{ margin-top: 0; }
+    .contact p{ color: rgba(11,18,21,.78); }
+    .contact-panel{
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(11,18,21,.10);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 16px 40px rgba(0,0,0,.18);
+    }
+    .field{ display:flex; flex-direction:column; gap:6px; margin-top: 10px; }
+    label{ font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: rgba(11,18,21,.70); }
+    input, textarea{
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid rgba(11,18,21,.18);
+      padding: 10px 12px;
+      font-family: var(--sans);
+      font-size: 14px;
+      outline: none;
+      background: rgba(255,255,255,.85);
+    }
+    textarea{ min-height: 96px; resize: vertical; }
+    .note{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(11,18,21,.68);
+      line-height: 1.45;
+    }
+
+    footer{
+      border-top: 1px solid rgba(11,18,21,.16);
+      margin-top: 18px;
+      padding-top: 12px;
+      display:flex; justify-content:space-between; align-items:center;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: rgba(11,18,21,.70);
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .contact-grid{ grid-template-columns: 1fr; }
+      .two-col{ grid-template-columns: 1fr; }
+      .cards{ grid-template-columns: 1fr; }
+      .leadership{ grid-template-columns: 1fr; }
+      .links{ display:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="nav">
+      <a class="brand" href="#top" aria-label="Ember Home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>EMBER</span>
+      </a>
+
+      <nav class="links" aria-label="Primary">
+        <a href="#advantage">The Ember Advantage</a>
+        <a href="#mission">Our Mission</a>
+        <a href="#solutions">Our Solutions</a>
+        <a href="#leadership">Our Leadership</a>
+        <a href="#contact">Contact Us</a>
+      </nav>
+
+      <div class="cta">
+        <a class="btn primary" href="#contact">Meet Ember</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+    <!-- HERO -->
+    <div class="hero">
+      <div class="wrap">
+        <div class="hero-grid">
+          <div class="hero-card">
+            <div class="kicker">A New Kind of Mutual Partnership</div>
+            <h1>
+              Igniting Progress.<br/>
+              <span class="headline-accent">Preserving Tradition.</span>
+            </h1>
+
+            <p>
+              We partner with legacy mutuals to help them evolve for the future while honoring their roots—
+              combining modern tools with mutual spirit to create sustainable growth.
+            </p>
+
+            <div class="quote">
+              At their core, mutuals are about people: connected by trust, grounded in tradition, and united by community.
+              Ember brings together the systems and support mutuals need to thrive.
+            </div>
+
+            <div class="hero-sub">
+              <span class="pill">Modern tools</span>
+              <span class="pill">Mutual spirit</span>
+              <span class="pill">Sustainable growth</span>
+            </div>
+
+            <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn primary" href="#advantage">The Ember Advantage</a>
+              <a class="btn" href="#solutions">Explore Solutions</a>
+            </div>
+          </div>
+
+          <div class="side">
+            <div class="panel">
+              <h3>Why Ember</h3>
+              <ul>
+                <li>Leaders stretched thin, outdated systems, limited access to technology or resources.</li>
+                <li>Modernize with purpose—keeping the heart, history, and independence that define your mutual.</li>
+                <li><strong style="color:rgba(232,243,246,.92)">Not acquisition — alignment.</strong></li>
+              </ul>
+            </div>
+
+            <div class="panel">
+              <h3>What You Keep</h3>
+              <ul>
+                <li>Your ownership.</li>
+                <li>Your brand.</li>
+                <li>Your strength.</li>
+                <li>Your control.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADVANTAGE -->
+    <section id="advantage">
+      <div class="wrap">
+        <div class="kicker">The Ember Advantage</div>
+        <h2>Revive and reinforce what’s been built.</h2>
+        <div class="two-col">
+          <div>
+            <p>
+              Across the country, many long-standing mutuals face familiar challenges: leaders stretched thin,
+              outdated systems, and limited access to technology or resources. Growth feels out of reach, and
+              legacy is at risk.
+            </p>
+            <p>
+              Ember exists to change that, not by replacing what’s been built but by reviving and reinforcing it.
+              We help mutuals modernize with purpose, keeping the heart, history, and independence that define who they are.
+            </p>
+            <p style="margin-top:14px; color:rgba(232,243,246,.88); font-weight:700;">
+              Ember isn’t about acquisition — it’s about alignment.
+            </p>
+          </div>
+
+          <div class="callout">
+            <div class="label">Together</div>
+            <p style="margin-top:10px;">
+              We create stability, shared strength, and renewed momentum, while preserving what matters most:
+              the legacy and identity at the core of your mutual.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MISSION -->
+    <section id="mission">
+      <div class="wrap">
+        <div class="kicker">Our Mission</div>
+        <h2>Our mission is simple.</h2>
+        <p style="max-width: 74ch;">
+          To protect your independence, strengthen your foundation, and share the kind of resources that spark new growth
+          and confidence.
+        </p>
+      </div>
+    </section>
+
+    <!-- SOLUTIONS -->
+    <section id="solutions">
+      <div class="wrap">
+        <div class="kicker">Our Solutions</div>
+        <h2>Flexible, scalable services under one roof.</h2>
+        <p style="max-width: 92ch;">
+          When our resources meet your local expertise, strength multiplies—creating smoother operations,
+          smarter decisions, and sustainable growth, all while preserving your independence.
+        </p>
+
+        <div class="cards" role="list">
+          <div class="card" role="listitem">
+            <h3>Integrated Capital</h3>
+            <p>Tailored funding that reinforces mutual strength and drives lasting profitability.</p>
+          </div>
+
+          <div class="card" role="listitem">
+            <h3>Underwriting &amp; Claims Support</h3>
+            <p>Shared best practices and scalable resources so your team can focus on what matters most—your members.</p>
+          </div>
+
+          <div class="card" role="listitem">
+            <h3>Compliance, Operational Guidance, &amp; Reinsurance Support</h3>
+            <p>Navigate change, regulation, and risk with a trusted partner—from compliance oversight to strategic reinsurance.</p>
+          </div>
+
+          <div class="card" role="listitem">
+            <h3>Technology &amp; Systems Modernization</h3>
+            <p>Secure, modern platforms for policy, billing, and claims management built for today—and ready for tomorrow.</p>
+          </div>
+
+          <div class="card" role="listitem">
+            <h3>Marketing &amp; Brand Development</h3>
+            <p>Creative strategy, storytelling, and design that connect with today’s policyholders while honoring your legacy.</p>
+          </div>
+
+          <div class="card" role="listitem">
+            <h3>Training &amp; Leadership Development</h3>
+            <p>Equip your people with the skills and tools to adapt, grow, and lead confidently into the future.</p>
+          </div>
+        </div>
+
+        <p style="margin-top:18px; color:rgba(232,243,246,.86);">
+          We’re not here to take over. We’re here to stand beside you—reinforcing what already works and thoughtfully building what’s next.
+        </p>
+      </div>
+    </section>
+
+    <!-- LEADERSHIP -->
+    <section id="leadership">
+      <div class="wrap">
+        <div class="kicker">Our Leadership</div>
+        <h2>Built by Mutuals, for Mutuals.</h2>
+        <p style="max-width: 92ch;">
+          Our leadership team has walked in your shoes—underwriting, claims, operations, marketing, technology, and finance.
+          That perspective shapes everything we do.
+        </p>
+
+        <h3 style="margin-top:22px; font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:rgba(232,243,246,.86);">
+          Meet the Mutual Minds Behind Ember
+        </h3>
+
+        <div class="leadership">
+          <!-- Replace placeholders with real people/headshots as needed -->
+          <div class="person">
+            <div class="person-top">
+              <div class="avatar" aria-hidden="true"></div>
+              <div>
+                <h3>Jake Black</h3>
+                <div class="role">Title of Person</div>
+              </div>
+            </div>
+            <p>
+              [Add a short bio: experience, years in the mutual industry, and the kind of problems they’ve solved.]
+            </p>
+          </div>
+
+          <div class="person">
+            <div class="person-top">
+              <div class="avatar" aria-hidden="true"></div>
+              <div>
+                <h3>Jake Black</h3>
+                <div class="role">Title of Person</div>
+              </div>
+            </div>
+            <p>
+              [Add a short bio. Consider focusing on operations/technology modernization and team enablement.]
+            </p>
+          </div>
+
+          <div class="person">
+            <div class="person-top">
+              <div class="avatar" aria-hidden="true"></div>
+              <div>
+                <h3>Jake Black</h3>
+                <div class="role">Title of Person</div>
+              </div>
+            </div>
+            <p>
+              [Add a short bio. Consider focusing on underwriting/claims excellence, compliance, or reinsurance strategy.]
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+      <div class="wrap">
+        <div class="kicker" style="color: rgba(11,18,21,.65);">Contact Us</div>
+        <h2>Let’s keep the fire alive.</h2>
+        <p style="max-width: 80ch;">
+          Discover how Ember can power a new era of growth for your mutual.
+        </p>
+
+        <div class="contact-grid" style="margin-top:18px;">
+          <div>
+            <div class="contact-panel">
+              <strong>Email</strong><br/>
+              <a href="mailto:email@embermutual.com">email@embermutual.com</a>
+              <p style="margin-top:10px;">
+                Ember Street Address<br/>
+                City, State, 000000<br/>
+                Phone: 000.000.0000
+              </p>
+              <p class="note">
+                This form is a visual placeholder (GitHub Pages is static). If you want submissions,
+                wire this to a service like Formspree, Basin, or a simple serverless endpoint.
+              </p>
+            </div>
+          </div>
+
+          <div class="contact-panel">
+            <form onsubmit="return false;">
+              <div class="field">
+                <label for="name">Name</label>
+                <input id="name" name="name" placeholder="Your name" autocomplete="name" />
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="you@company.com" autocomplete="email" />
+              </div>
+              <div class="field">
+                <label for="msg">Message</label>
+                <textarea id="msg" name="msg" placeholder="Tell us about your mutual and what you’re looking to modernize."></textarea>
+              </div>
+
+              <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
+                <button class="btn primary" type="button" onclick="alert('This demo form does not submit (static site). Replace with Formspree/Basin/etc.');">
+                  Send Message
+                </button>
+                <a class="btn" href="mailto:email@embermutual.com?subject=Meet%20Ember">Email Instead</a>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <footer>
+          <div><strong>EMBER</strong> — Mutual spirit, modern tools.</div>
+          <div>Footer Information</div>
+        </footer>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
