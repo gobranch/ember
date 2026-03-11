@@ -30,7 +30,16 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" href="styles.css">
+
+
+<?php
+  $css_file = 'styles.css';
+  // Get the last modified time of the file
+  $version = file_exists($css_file) ? filemtime($css_file) : '1.0';
+?>
+
+<link rel="stylesheet" href="<?php echo $css_file; ?>?v=<?php echo $version; ?>">
+
 
 </head>
 
@@ -42,7 +51,7 @@
 	<div class="constrain">
 		<div class="container-fluid">
 			<div class="header__inner d-flex align-items-center justify-content-between">
-				<div class="logo-header"><img class="img-fluid" src="img/logo-header.svg" alt="Ember"></div>
+				<div class="logo-header"><img class="img-fluid" src="/img/logo-header.svg?v=1" alt="Ember"></div>
 
 				<nav class="nav-header d-none d-lg-flex" aria-label="Primary navigation">
 					<ul>
@@ -67,7 +76,7 @@
 		<div class="constrain">
 			<div class="container-fluid">
 				<div class="header__inner d-flex align-items-center justify-content-between">
-					<div id="offcanvasExampleLabel" class="logo-header"><img class="img-fluid" src="img/logo-header.svg" alt="Ember"></div>
+					<div id="offcanvasExampleLabel" class="logo-header"><img class="img-fluid" src="/img/logo-header.svg" alt="Ember"></div>
 					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 				</div>
 			</div>
@@ -116,7 +125,7 @@
 		<div class="container-fluid">
 			<div class="row gy-5 d-flex align-items-center">
 				<div class="col-md-5 order-md-last">
-					<div class="image"><img class="img-fluid" alt=" " src="img/ember-advantage.png"></div>
+					<div class="image"><img class="img-fluid" alt=" " src="/img/ember-advantage.png?v=1"></div>
 				</div>
 
 				<div class="col-md-7 order-md-first">
@@ -147,7 +156,7 @@
 				</div>
 
 				<div class="col-lg-5 order-lg-first d-none d-lg-block">
-					<div class="image"><img class="img-fluid" alt=" " src="img/ember-mission.png"></div>
+					<div class="image"><img class="img-fluid" alt=" " src="/img/ember-mission.png?v=1"></div>
 				</div>
 
 			</div>
@@ -229,7 +238,7 @@
 		<div class="container-fluid">
 			<div class="row gy-5 d-flex align-items-center">
 				<div class="col-md-5">
-					<div class="image"><img class="img-fluid" alt=" " src="img/ember-leadership.png"></div>
+					<div class="image"><img class="img-fluid" alt=" " src="/img/ember-leadership.png?v=2"></div>
 				</div>
 
 				<div class="col-md-7">
@@ -246,12 +255,106 @@
 	</div>
 </section>
 
+
+
+<section id="solutions" class="stack stack-solutions py-6 bg-white text-dark-blue">
+	<div class="constrain">
+		<div class="container-fluid">
+			<div class="vstack row-gap-5">
+
+				<div class="row gy-5">
+					<div class="col col-md-8 col-xl-8 mx-auto text-center">
+						<h2>Meet the <strong>Mutual Minds</strong> Behind <strong>Ember</strong></h2>
+					</div>
+				</div>
+
+
+				<div class="team">
+					<div class="row d-flex gy-5 gx-3 gx-md-4">
+						<div class="col-6 col-md-3">
+							<div class="employee">
+								<img class="img-fluid" alt="" src="img/jake-black.jpg?v=1">
+								<p><strong>Jake Black</strong><br>President</p>
+							</div>
+						</div>
+						<div class="col-6 col-md-3">
+							<div class="employee">
+								<img class="img-fluid" alt="" src="img/steve-lekas.jpg?v=1">
+								<p><strong>Steve Lekas</strong><br>Chief Executive Officer</p>
+							</div>
+						</div>
+						<div class="col-6 col-md-3">
+							<div class="employee">
+								<img class="img-fluid" alt="" src="img/joe-emison.jpg?v=1">
+								<p><strong>Joe Emison</strong><br>Chief Technology Officer</p>
+							</div>
+						</div>
+						<div class="col-6 col-md-3">
+							<div class="employee">
+								<img class="img-fluid" alt="" src="img/jen-regas.jpg?v=2">
+								<p><strong>Jen Regas</strong><br>Chief Financial Officer</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="team">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="team-group">
+								<h4>Tech</h4>
+								<p><strong>Joe Emison</strong><br>Chief Technology Officer</p>
+								<p><strong>Bill Corwin, Director</strong><br>Head of IT</p>
+							</div>
+							<div class="team-group">
+								<h4>Data</h4>
+								<p><strong>Carson Wilshire</strong><br>Senior Director, Data</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="team-group">
+								<h4>Product Underwriting</h4>
+								<p><strong>Steve Tews</strong><br>Vice President, Head of Product Corporate</p>
+								<p><strong>Joey Kenney</strong><br>Vice President, Head of Product & Underwriting</p>
+							</div>
+							<div class="team-group">
+								<h4>Claims</h4>
+								<p><strong>Charlie Wendland</strong><br>Chief Claims Officer Corporate</p>
+								<p><strong>Kent Peterson</strong><br>Director, Property</p>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="team-group mb-0">
+								<h4>Marketing</h4>
+								<p><strong>Dan Spiegel</strong><br>Vice President, Head of Marketing</p>
+								<p><strong>Melissa Hoefer</strong><br>Senior Graphic Designer</p>
+								<p><strong>Morgan Nail</strong><br>Senior Marketing Content Specialist</p>
+								<p><strong>Sheena Grindstaff</strong><br>Content Specialist</p>
+								<p><strong>Sam Kenney</strong><br>Digital Marketing Specialist</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+
+
+
+
 <section id="contact" class="stack stack-contact py-6 bg-lime text-dark-blue">
 	<div class="constrain">
 		<div class="container-fluid">
 			<div class="row gy-5">
 				<div class="col-md-6">
-					<div class="logo-contact"><img class="img-fluid" alt=" " src="img/logo-contact.svg"></div>
+					<div class="logo-contact"><img class="img-fluid" alt=" " src="/img/logo-contact.svg?v=1"></div>
 				</div>
 
 				<div class="col-md-6">
@@ -262,9 +365,9 @@
 					</div>
 
 					<div class="social">
-						<a href="https://www.facebook.com/embermutuals/" target="_blank" rel="noopener noreferrer"><img class="img-fluid" alt="Facebook" src="img/facebook.png"></a>
-						<a href="https://www.linkedin.com/company/ember-mutuals" target="_blank" rel="noopener noreferrer"><img class="img-fluid" alt="LinkedIn" src="img/linkedin.png"></a>
-						<a href="https://embermutuals.medium.com/" target="_blank" rel="noopener noreferrer"><img class="img-fluid" alt="Medium" src="img/medium.png"></a>
+						<a href="https://www.facebook.com/embermutuals/" target="_blank" rel="noopener noreferrer"><img class="img-fluid" alt="Facebook" src="/img/facebook.png?v=1"></a>
+						<a href="https://www.linkedin.com/company/ember-mutuals" target="_blank" rel="noopener noreferrer"><img class="img-fluid" alt="LinkedIn" src="/img/linkedin.png?v=1"></a>
+						<a href="https://embermutuals.medium.com/" target="_blank" rel="noopener noreferrer"><img class="img-fluid" alt="Medium" src="/img/medium.png?v=1"></a>
 					</div>
 				</div>
 			</div>
